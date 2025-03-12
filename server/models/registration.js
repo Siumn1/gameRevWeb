@@ -1,6 +1,6 @@
 const { sequelize } = require('../connection')
 const { DataTypes } = require('sequelize')
-//const { course } = require('./courses')
+
 const { user } = require('./users')
 
 const registration = sequelize.define(
@@ -17,15 +17,9 @@ const registration = sequelize.define(
         timestamps: true
     }
 )
-
-registration.belongsTo(course, {
-    foreignKey: 'course_id',
-    as: 'CourseId'
-})
-
 registration.belongsTo(user, {
     foreignKey: 'uid',
-    as: 'authUid'
+    as: 'regUid'
 })
 
 async function get_registrations_table() {

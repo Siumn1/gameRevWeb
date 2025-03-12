@@ -1,4 +1,5 @@
-const { sequelize } = require('../connecton')
+const { sequelize } = require('../connection')
+
 const { DataTypes } = require('sequelize')
 
 const auth = sequelize.define(
@@ -34,7 +35,5 @@ async function get_auths_table() {
     await auth.sync()
     console.log('auth table synced');
 }
-
-get_auths_table()
 
 module.exports = { auth, get_auths_table }

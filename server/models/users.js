@@ -1,6 +1,6 @@
 const { sequelize } = require('../connection')
 const { DataTypes } = require('sequelize')
-const { auth } = require('./auths')
+const { auth } = require('./auth')
 
 const user = sequelize.define(
     'user',
