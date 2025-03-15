@@ -8,34 +8,31 @@ app.use(express.urlencoded({ extended: true }))
 dotenv.config();
 
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 
 app.use(cors({ origin: '*' }))
 app.use(express.json());
 
-const { get_auths_table } = require('./models/auth')
-const { get_users_table } = require('./models/users')
-// const { get_courses_table } = require('./models/courses')
-// const { get_feedbacks_table } = require('./models/feedbacks')
-const { get_registrations_table } = require('./models/registration');
-const { get_review_table } = require("./models/review");
-get_auths_table()
-get_users_table()
-// get_courses_table()
-get_review_table()
-get_registrations_table()
+ const { get_auths_table } = require('./models/auth')
+ const { get_user_table } = require('./models/user')
+// const { get_registrations_table } = require('./models/registration');
+ const { get_review_table } = require("./models/review");
+ get_auths_table()
+ get_user_table()
+ get_review_table()
+// get_registrations_table()
 
 
-// const auths_routes = require('./routes/auths')
-// const users_routes = require('./routes/users')
+const auths_routes = require('./routes/auth')
 const review_routes = require('./routes/review')
+const users_routes = require('./routes/user')
 // const feedbacks_routes = require('./routes/feedbacks')
 // const registrations_routes = require('./routes/registrations')
 
-// app.use('/api/auth', auths_routes)
-// app.use('/api/user', users_routes)
+app.use('/api/auth', auths_routes)
 app.use('/api/review', review_routes)
+app.use('/api/user', users_routes)
 // app.use('/api/feedback', feedbacks_routes)
 // app.use('/api/registration', registrations_routes)
 

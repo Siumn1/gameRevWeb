@@ -1,36 +1,46 @@
-// models/review.js
-const { sequelize }= require('../connection');
+const { sequelize } = require('../connection');
 const { DataTypes } = require('sequelize');
-const { user } = require('./users')
+const { User } = require('./user'); // Импорт модели User
 
-
-const review = sequelize.define('review', {
+const Review = sequelize.define('review', {
     id: {
         type: DataTypes.BIGINT,
         primaryKey: true,
-        autoIncrement: true
+        autoIncrement: true,
     },
     title: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
     },
     content: {
         type: DataTypes.TEXT,
-        allowNull: false
-    }
-    
+        allowNull: false,
+    },
+    rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 1,
+            max: 5,
+        },
+    },
+    userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+    },
 }, {
-    tableName: 'reviews'
+    tableName: 'reviews',
+    timestamps: true,
 });
 
-review.belongsTo(user, {
+Review.belongsTo(User, {
     foreignKey: 'userId', // Внешний ключ в таблице reviews
-    as: 'user' // Псевдоним для доступа к пользователю
+    as: 'user', // Псевдоним для доступа к пользователю
 });
 
 async function get_review_table() {
-    await review.sync()
-    console.log('registration table synced');
+    await Review.sync();
+    console.log('review table synced');
 }
 
-module.exports = {review, get_review_table};
+module.exports = { Review, get_review_table };

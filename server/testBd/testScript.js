@@ -21,7 +21,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 5000, // Таймаут 5 секунд
     });
-    const User = require('../models/User');
+    const User = require('../models/users');
     console.log('MongoDB connected');
   } catch (err) {
     console.error('MongoDB connection error:', err);
@@ -32,7 +32,7 @@ const connectDB = async () => {
 // Запуск приложения
 const startApp = async () => {
   await connectDB(); // Подключение к базе данных
-  const User = require('../models/User');
+  const User = require('../models/users');
   
 
   // Запуск сервера
